@@ -1,0 +1,12 @@
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.GeneratedMSBuildEditorConfig.editorconfig
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.AssemblyInfoInputs.cache
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.AssemblyInfo.cs
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.csproj.CoreCompileInputs.cache
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.csproj.AssemblyReference.cache
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\bin\Debug\net6.0\PatternToolbox.deps.json
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\bin\Debug\net6.0\PatternToolbox.dll
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\bin\Debug\net6.0\ref\PatternToolbox.dll
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\bin\Debug\net6.0\PatternToolbox.pdb
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.dll
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\ref\PatternToolbox.dll
+D:\AIrtist\AIrtist-discord-bot\PatternToolbox\obj\Debug\net6.0\PatternToolbox.pdb
