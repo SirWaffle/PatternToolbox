@@ -48,6 +48,8 @@ namespace PatternToolbox.Logging
 
             public LogLevel LowestDisplayableLogLevel { get; set; } = LogLevel.Trace;
             public bool SilenceAllLogging { get; set; } = false;
+
+            public LoggerConfig() { }
         }
 
 
