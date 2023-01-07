@@ -18,10 +18,10 @@ namespace PatternToolbox.DataStructures.EventRouter
 
         public Type EventType { get { return typeof(EvtType); } }
 
-        public ConditionFunc? Condition = null;
+        public ConditionFunc? Condition;
         public HandlerFunc handler;
 
-        public int Priority { get; set; } = 0;
+        public int Priority { get; set; }
 
         public EventHandler(HandlerFunc handlerFunc, int priority, ConditionFunc? condition = null)
         {
@@ -32,6 +32,7 @@ namespace PatternToolbox.DataStructures.EventRouter
 
         public EventHandler(HandlerFunc handlerFunc, int priority = 0)
         {
+            Condition = null;
             handler = handlerFunc;
             Priority = priority;
         }

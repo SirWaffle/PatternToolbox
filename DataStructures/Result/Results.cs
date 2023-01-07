@@ -16,13 +16,14 @@ namespace PatternToolbox.DataStructures.Result
         public SuccessType? Res { get; set; }// = null;
         public ErrorType? Err { get; set; }// = null;
 
-        private bool _success = false;
+        private bool _success;
 
         public bool IsFail { get { return !_success; } }
         public bool IsSuccess { get { return _success; } }
 
         public Result(SuccessType? defaultSuccess, ErrorType? defaultErrorType)
         {
+            _success = false;
             Res = defaultSuccess;
             Err = defaultErrorType;
         }
