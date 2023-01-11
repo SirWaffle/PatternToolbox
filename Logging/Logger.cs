@@ -22,6 +22,7 @@ namespace PatternToolbox.Logging
         void LogMessage(LogLevel level, string msg);
     }
 
+    [Serializable]
     public class Logger
     {
         private static Logger _globalLogger = null;
@@ -30,25 +31,26 @@ namespace PatternToolbox.Logging
         protected static readonly DateTime startTime = DateTime.Now;
         protected static IExternalLogger? ExternalLogger;
 
+        [Serializable]
         public struct LoggerConfig
         {
-            public bool ExceptionOnCriticalError { get; set; }
-            public bool AssertOnCriticalError { get; set; }
-            public bool LogToDiagnosticConsole { get; set; } 
-            public bool LogToConsole { get; set; } 
-            public bool AssertOnStub { get; set; }
-            public bool CriticalErrorOnNotImplemented { get; set; } 
+            public bool ExceptionOnCriticalError;
+            public bool AssertOnCriticalError;
+            public bool LogToDiagnosticConsole;
+            public bool LogToConsole;
+            public bool AssertOnStub;
+            public bool CriticalErrorOnNotImplemented;
 
-            public bool FullStackTraceOnAllMessages { get; set; }
+            public bool FullStackTraceOnAllMessages;
 
-            public bool PartialStackTraceOnAllMessages { get; set; }
-            public bool PartialStackTraceOnNotImplemented { get; set; } 
+            public bool PartialStackTraceOnAllMessages;
+            public bool PartialStackTraceOnNotImplemented;
 
-            public bool TimestampMessagesInMs { get; set; } 
+            public bool TimestampMessagesInMs;
 
-            public LogLevel LowestDisplayableLogLevel { get; set; } 
-            public bool SilenceAllLogging { get; set; }
-
+            public LogLevel LowestDisplayableLogLevel;
+            public bool SilenceAllLogging;
+            //test
             public void SetDefaults()
             {
                 ExceptionOnCriticalError = true;
@@ -115,7 +117,9 @@ namespace PatternToolbox.Logging
         {
             SystemName = systemName;
             Config = config;
-            ExternalLogger = externalLogger;
+
+            if(ExternalLogger == null)
+                ExternalLogger = externalLogger;
         }
 
 
