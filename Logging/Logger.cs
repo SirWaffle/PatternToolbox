@@ -22,54 +22,34 @@ namespace PatternToolbox.Logging
         void LogMessage(LogLevel level, string msg);
     }
 
-    [Serializable]
     public class Logger
     {
-        private static Logger _globalLogger = null;
-        public static Logger GlobalLogger { get { return Logger._globalLogger; } }
+        public static Logger? _globalLogger { get; set; } = null;
+        public static Logger GlobalLogger { get { return Logger._globalLogger!; } }
 
         protected static readonly DateTime startTime = DateTime.Now;
         protected static IExternalLogger? ExternalLogger;
 
-        [Serializable]
         public struct LoggerConfig
         {
-            public bool ExceptionOnCriticalError;
-            public bool AssertOnCriticalError;
-            public bool LogToDiagnosticConsole;
-            public bool LogToConsole;
-            public bool AssertOnStub;
-            public bool CriticalErrorOnNotImplemented;
+            public bool ExceptionOnCriticalError { get; set; } = true;
+            public bool AssertOnCriticalError { get; set; } = true;
+            public bool LogToDiagnosticConsole { get; set; } = true;
+            public bool LogToConsole { get; set; } = true;
+            public bool AssertOnStub { get; set; } = true;
+            public bool CriticalErrorOnNotImplemented { get; set; } = true;
 
-            public bool FullStackTraceOnAllMessages;
+            public bool FullStackTraceOnAllMessages { get; set; } = false;
 
-            public bool PartialStackTraceOnAllMessages;
-            public bool PartialStackTraceOnNotImplemented;
+            public bool PartialStackTraceOnAllMessages { get; set; } = true;
+            public bool PartialStackTraceOnNotImplemented { get; set; } = true;
 
-            public bool TimestampMessagesInMs;
+            public bool TimestampMessagesInMs { get; set; } = true;
 
-            public LogLevel LowestDisplayableLogLevel;
-            public bool SilenceAllLogging;
-            //test
-            public void SetDefaults()
-            {
-                ExceptionOnCriticalError = true;
-                AssertOnCriticalError = true;
-                LogToDiagnosticConsole = true;
-                LogToConsole = true;
-                AssertOnStub = true;
-                CriticalErrorOnNotImplemented = true;
+            public LogLevel LowestDisplayableLogLevel { get; set; } = LogLevel.Trace;
+            public bool SilenceAllLogging { get; set; } = false;
 
-                FullStackTraceOnAllMessages = false;
-
-                PartialStackTraceOnAllMessages = true;
-                PartialStackTraceOnNotImplemented = true;
-
-                TimestampMessagesInMs = true;
-
-                LowestDisplayableLogLevel = LogLevel.Trace;
-                SilenceAllLogging = false;
-            }
+            public LoggerConfig() { }
         }
 
 
@@ -79,9 +59,7 @@ namespace PatternToolbox.Logging
 
         public static Logger CreateRootLogger()
         {
-            LoggerConfig conf = new LoggerConfig();
-            conf.SetDefaults();
-            return CreateRootLogger(conf);
+            return CreateRootLogger(new LoggerConfig());
         }
 
         public static Logger CreateRootLogger(LoggerConfig config)
@@ -117,9 +95,7 @@ namespace PatternToolbox.Logging
         {
             SystemName = systemName;
             Config = config;
-
-            if(ExternalLogger == null)
-                ExternalLogger = externalLogger;
+            ExternalLogger = externalLogger;
         }
 
 

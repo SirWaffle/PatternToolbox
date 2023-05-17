@@ -8,16 +8,18 @@ namespace PatternToolbox.DataStructures.Result
 { 
     public struct ResultStringList
     {
-        public List<string>? Values { get; private set; }
+        public List<string>? Values { get; private set; } = null;
 
         public static implicit operator ResultStringList(string value)
         {
             return new ResultStringList(value);
         }
 
+        public ResultStringList()
+        { }
+
         public ResultStringList(String str)
         {
-            Values = null;
             AddString(str);
         }
 
