@@ -19,8 +19,11 @@ namespace PatternToolbox.DataStructures.Factory
         {
             if( item != typeof(T) && item.IsSubclassOf(typeof(T)) == false )
             {
-                logger.Log(LogLevel.CriticalError, "item type {0} is not a or is not a subclass of type {1}", item.FullName!, typeof(T).FullName!);
-                return;
+                if (item.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(T)))
+                {
+                    logger.Log(LogLevel.CriticalError, "item type {0} is not a or is not a subclass of type {1}", item.FullName!, typeof(T).FullName!);
+                    return;
+                }
             }
 
             if (items.ContainsKey(itemName))
