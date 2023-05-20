@@ -90,11 +90,22 @@ namespace PatternToolbox.DataStructures.EventRouter
 
         protected override void OnRaiseEvent(System.Collections.IDictionary dict, EventBaseClassType ev, ref EventArgsBaseClassType arg1)
         {
+            bool consumed = false;
             foreach (KeyValuePair<DictKey, List<IEventHandler<EventBaseClassType, EventArgsBaseClassType>>> kvp in Cast(dict))
             {
                 foreach (var handler in kvp.Value)
                 {
-                    handler.HandleEvent(ev, ref arg1);
+                    consumed = handler.HandleEvent(ev, ref arg1);
+                    if (consumed)
+                    {
+                        logger.Log(LogLevel.Debug, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
+                        break;
+                    }
+                }
+                if (consumed)
+                {
+                    logger.Log(LogLevel.Debug, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
+                    break;
                 }
             }
         }

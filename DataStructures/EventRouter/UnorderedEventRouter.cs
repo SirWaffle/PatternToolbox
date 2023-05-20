@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PatternToolbox.Logging;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,11 @@ namespace PatternToolbox.DataStructures.EventRouter
         {
             foreach (var handler in Cast(dict).Values)
             {
-                handler.HandleEvent(ev, ref arg1);
+                if(handler.HandleEvent(ev, ref arg1) == true)
+                {
+                    logger.Log(LogLevel.Debug, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
+                    break;
+                }
             }
         }
     }

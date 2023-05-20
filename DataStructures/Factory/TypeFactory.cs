@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace PatternToolbox.DataStructures.Factory
 {
-    public class TypeFactory<T> where T: class
+    public class TypeFactory<T> : ITypeFactory where T : class
     {
         public IEnumerable<String> ItemNames { get { return items.Keys; } }
 
-        protected Dictionary<String,Type> items = new();
+        protected Dictionary<String, Type> items = new();
 
         private Logger logger = Logger.CreateLogger<TypeFactory<T>>();
 
         public virtual void RegisterItem(String itemName, Type item)
         {
-            if( item != typeof(T) && item.IsSubclassOf(typeof(T)) == false )
+            if (item != typeof(T) && item.IsSubclassOf(typeof(T)) == false)
             {
                 if (item.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(T)))
                 {
@@ -48,8 +48,8 @@ namespace PatternToolbox.DataStructures.Factory
             return item;
         }
 
-        public virtual U? Create<U>(string name) where U: class
-        {            
+        public virtual U? Create<U>(string name) where U : class
+        {
             Type? itemType;
             if (!items.TryGetValue(name, out itemType) || itemType == null)
             {
