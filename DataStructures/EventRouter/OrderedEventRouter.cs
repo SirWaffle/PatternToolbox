@@ -98,13 +98,13 @@ namespace PatternToolbox.DataStructures.EventRouter
                     consumed = handler.HandleEvent(ev, ref arg1);
                     if (consumed)
                     {
-                        logger.Log(LogLevel.Debug, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
+                        logger.Log(LogLevel.Trace, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
                         break;
                     }
                 }
                 if (consumed)
                 {
-                    logger.Log(LogLevel.Debug, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
+                    logger.Log(LogLevel.Trace, "Event was consumed! {0}, {1}", ev.ToString(), arg1.GetType().Name);
                     break;
                 }
             }
