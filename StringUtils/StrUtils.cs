@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
+using System.Numerics;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,6 +12,28 @@ namespace PatternToolbox
 {
     public static class StrUtils
     {
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        public static string ReplaceFirst(this string text, string search, string replace, StringComparison comp = StringComparison.OrdinalIgnoreCase)
+        {
+            int pos = text.IndexOf(search, comp);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
+
         static public string EncodeNonAsciiCharacters(string value)
         {
             StringBuilder sb = new StringBuilder();
@@ -101,6 +125,28 @@ namespace PatternToolbox
         {
             while(str.Contains(@"\n"))
                 str = str.Replace(@"\n", "\n");
+
+            return str;
+        }
+
+        public static string TrimAfter(string str, string trimAfter, StringComparison comp = StringComparison.OrdinalIgnoreCase)
+        {
+            int ind = str.LastIndexOf(trimAfter);
+            if(ind != -1)
+            {
+                str = str.Substring(0, ind + trimAfter.Length);
+            }
+
+            return str;
+        }
+
+        public static string TrimBefore(string str, string trimAfter, StringComparison comp = StringComparison.OrdinalIgnoreCase)
+        {
+            int ind = str.IndexOf(trimAfter);
+            if (ind != -1 && ind != 0)
+            {
+                str = str.Substring(ind);
+            }
 
             return str;
         }
