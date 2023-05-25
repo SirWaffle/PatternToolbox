@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PatternToolbox.DataStructures.Repository
 {
-    public class Repository<T> where T : class
+    public class Repository<T>
     {
         public IEnumerable<String> ItemNames { get { return items.Keys; } }
 
@@ -52,15 +52,28 @@ namespace PatternToolbox.DataStructures.Repository
                 return;
             }
 
-            T? itemT = item as T;
-            if (itemT == null)
+            if (item is T itemT)
             {
-                logger.Log(LogLevel.CriticalError, "item could not be cast to type when registering!  {0}", itemName);
-                return;
+                if (itemT != null)
+                {
+                    items.Add(itemName, itemT);
+                    logger.Log(LogLevel.Trace, "Added {0} with type {1}", itemName, item.GetType().Name);
+                    return;
+                }
+
             }
 
-            items.Add(itemName, itemT);
-            logger.Log(LogLevel.Trace, "Added {0} with type {1}", itemName, item.GetType().Name);
+            logger.Log(LogLevel.CriticalError, "item could not be cast to type when registering!  {0}", itemName);
+        }
+
+        public virtual T? Get(string name)
+        {
+            if (!items.TryGetValue(name, out T? item))
+            {
+                logger.Log(LogLevel.CriticalError, "item is not in repository! -> {0}", name);
+            }
+
+            return item;
         }
 
         public virtual U? Get<U>(string name) where U : class

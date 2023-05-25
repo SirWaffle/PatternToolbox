@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PatternToolbox.DataStructures.Factory
 {
-    public class BuilderFactory<U, T> where U: class, IFactoryBuilder<T> where T: class
+    public class BuilderFactory<U, T> where U: class, IFactoryBuilder<T> 
     {
         public IEnumerable<String> ItemNames { get { return items.Keys; } }
 
