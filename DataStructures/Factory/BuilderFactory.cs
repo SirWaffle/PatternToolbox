@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace PatternToolbox.DataStructures.Factory
 {
-    public class BuilderFactory<U, T> where U: class, IFactoryBuilder<T> 
+    public class BuilderFactory<U, T> : IBuilderFactory where U : class, IFactoryBuilder<T>
     {
         public IEnumerable<String> ItemNames { get { return items.Keys; } }
 
         protected Dictionary<String, IFactoryBuilder<T>> items = new();
 
-        private Logger logger = Logger.CreateLogger< BuilderFactory<U,T> >();
+        private Logger logger = Logger.CreateLogger<BuilderFactory<U, T>>();
 
         public virtual void RegisterItem(Type item)
         {
             IFactoryBuilder<T>? i = (IFactoryBuilder<T>?)Activator.CreateInstance(item);
             if (i == null)
             {
-                logger.Log( LogLevel.CriticalError, "Failed to get IFactoryItem interface from type {0}", item.Name);
+                logger.Log(LogLevel.CriticalError, "Failed to get IFactoryItem interface from type {0}", item.Name);
                 return;
             }
             RegisterItem(i);
@@ -50,6 +50,18 @@ namespace PatternToolbox.DataStructures.Factory
 
             return itemBuilder!.Build();
             //return Activator.CreateInstance(itemType!) as U;
+        }
+
+        public CT? Create<CT>(string name) where CT: class
+        {
+            CT? item = Create(name) as CT;
+            return item;
+        }
+
+
+        public void RegisterItem<T1>(IFactoryBuilder<T1> item)
+        {
+            RegisterItem(item as IFactoryBuilder<T>);
         }
     }
 }
