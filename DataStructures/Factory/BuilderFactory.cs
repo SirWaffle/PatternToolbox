@@ -52,6 +52,17 @@ namespace PatternToolbox.DataStructures.Factory
             //return Activator.CreateInstance(itemType!) as U;
         }
 
+        public virtual IFactoryBuilder<T>? Get(string name)
+        {
+            IFactoryBuilder<T>? itemBuilder;
+            if (!items.TryGetValue(name, out itemBuilder) || itemBuilder == null)
+            {
+                logger.Log(LogLevel.CriticalError, "item is not in factory! -> {0}", name);
+            }
+
+            return itemBuilder;
+        }
+
         public CT? Create<CT>(string name) where CT: class
         {
             CT? item = Create(name) as CT;
