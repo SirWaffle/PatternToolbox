@@ -13,6 +13,16 @@ namespace PatternToolbox.DataStructures
         Dictionary<string, List<T>> PendingDict = new();
         List<string> PendingQueue = new List<string>();
 
+        public void Clear()
+        {
+            dictMutex.Wait();
+
+            PendingDict.Clear();
+            PendingQueue.Clear();
+
+            dictMutex.Release();
+        }
+
         public int QueueRequestBlocking(string key, T request)
         {
             dictMutex.Wait();
